@@ -4,22 +4,15 @@ using System.Text;
 
 namespace LojaZero.Models
 {
-    public class Product
+    public class Tag
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public decimal Value { get; set; }
-        public double Weight { get; set; }
 
-        public ICollection<ProductSelect> Sold { get; set; }
         public ICollection<ProductTag> ProductTags { get; set; }
-
-        public Product()
+        public Tag()
         {
-            Sold = new List<ProductSelect>();
             ProductTags = new List<ProductTag>();
         }
-
     }
 }

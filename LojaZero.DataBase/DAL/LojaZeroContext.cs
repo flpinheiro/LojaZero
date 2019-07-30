@@ -15,9 +15,10 @@ namespace LojaZero.DataBase.DAL
         }
 
         public DbSet<Person> People { get; set; }
-        //public DbSet<Product> Products { get; set; }
-        //public DbSet<ShoppingCart> ShoppingCarts { get; set; }
-        //public DbSet<User> User { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductSelect> ProductSelects { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<User> User { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,6 +32,10 @@ namespace LojaZero.DataBase.DAL
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<User>(p =>
+            {
+                p.HasKey(ps => ps.Email);
+            });
             modelBuilder.Entity<Person>(p => 
             {
                 p.HasKey(ps => ps.Id);

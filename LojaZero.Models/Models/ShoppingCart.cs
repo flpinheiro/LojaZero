@@ -9,14 +9,16 @@ namespace LojaZero.Models
         public int Id { get; set; }
         public DateTime DtShop { get; set; }
         public DateTime DtSend { get; set; }
-        public double ShippingTax { get; set; }
+        public string MailTag { get; set; }
+        public decimal ShippingTax { get; set; }
+        
         public ICollection<ProductSelect> ProductSelects { get; set; }
 
         public int ClientId { get; set; }
         public Client Client { get; set; }
 
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
+        public int DeliveryAddressId { get; set; }
+        public Address DeliveryAddress { get; set; }
 
         public ShoppingCart()
         {
@@ -30,18 +32,25 @@ namespace LojaZero.Models
             {
                 weight += p.Product.Weight * p.Qtd;
             }
-
             return weight;
         }
 
-        public double Totalvalue()
+        public decimal TotalValue()
         {
-            double total = 0;
+            decimal total = 0;
             foreach (var item in ProductSelects)
             {
                 total += item.TotalValue();
             }
-
+            return total + ShippingTax;
+        }
+        public decimal TotalValueWithDiscount()
+        {
+            decimal total = 0;
+            foreach (var item in ProductSelects)
+            {
+                total += item.TotalValueWithDiscount();
+            }
             return total + ShippingTax;
         }
     }
