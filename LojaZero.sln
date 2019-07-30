@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaZero.Models", "LojaZero.Models\LojaZero.Models.csproj", "{4AEB3743-D237-4F1F-B08F-06B362579223}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LojaZero.Models", "LojaZero.Models\LojaZero.Models.csproj", "{4AEB3743-D237-4F1F-B08F-06B362579223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaZero.DataBase", "LojaZero.DataBase\LojaZero.DataBase.csproj", "{7C426751-F797-4316-91CE-6767AD63B4A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LojaZero.DataBase", "LojaZero.DataBase\LojaZero.DataBase.csproj", "{7C426751-F797-4316-91CE-6767AD63B4A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaZero.Test", "LojaZero.Test\LojaZero.Test.csproj", "{9758FCBE-4CF3-4158-8510-DFB6177937AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LojaZero.Test", "LojaZero.Test\LojaZero.Test.csproj", "{9758FCBE-4CF3-4158-8510-DFB6177937AC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4AEB3743-D237-4F1F-B08F-06B362579223} = {4AEB3743-D237-4F1F-B08F-06B362579223}
 	EndProjectSection
@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaZero.WebApp", "LojaZero.WebApp\LojaZero.WebApp.csproj", "{E9381889-C96B-481E-B66F-49B56742C37B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaZero.MVC", "LojaZero.MVC\LojaZero.MVC.csproj", "{CE40D80D-4958-4518-A510-132B5B9D20BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +37,10 @@ Global
 		{9758FCBE-4CF3-4158-8510-DFB6177937AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9758FCBE-4CF3-4158-8510-DFB6177937AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9758FCBE-4CF3-4158-8510-DFB6177937AC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9381889-C96B-481E-B66F-49B56742C37B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9381889-C96B-481E-B66F-49B56742C37B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9381889-C96B-481E-B66F-49B56742C37B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9381889-C96B-481E-B66F-49B56742C37B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE40D80D-4958-4518-A510-132B5B9D20BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE40D80D-4958-4518-A510-132B5B9D20BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE40D80D-4958-4518-A510-132B5B9D20BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE40D80D-4958-4518-A510-132B5B9D20BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

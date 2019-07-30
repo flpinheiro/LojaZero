@@ -1,4 +1,5 @@
-﻿using LojaZero.Models;
+﻿using JetBrains.Annotations;
+using LojaZero.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,13 +7,26 @@ using System.Text;
 
 namespace LojaZero.DataBase.DAL
 {
-    class LojaZeroContext : DbContext
+    public class LojaZeroContext : DbContext
     {
+        public LojaZeroContext(DbContextOptions options) : base(options)
+        {
+            
+        }
+
         public DbSet<Person> People { get; set; }
         //public DbSet<Product> Products { get; set; }
         //public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         //public DbSet<User> User { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            if (!optionsBuilder.IsConfigured) {
+                optionsBuilder.UseSqlServer("Data Source=(localdb)/MSSQLLocalDB;Initial Catalog=LojaZero;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            }
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
