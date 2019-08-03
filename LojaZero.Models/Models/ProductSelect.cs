@@ -8,7 +8,8 @@ namespace LojaZero.Models
     public class ProductSelect
     {
         public int Qtd { get; set; }
-        public decimal UnitValue { get; internal set; }
+        public decimal UnitValue { get; set; }
+
         private decimal _dicount;
         public decimal Discount
         {

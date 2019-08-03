@@ -4,14 +4,12 @@ using System.Text;
 
 namespace LojaZero.Models
 {
-    public abstract class Person
+    public class Company
     {
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime DtBirthDay { get; set; }
-        public Gender Gender { get; set; }
-        public string CPF { get; set; }
+        public string Name { get; set; }
+        public string CNPJ { get; set; }
+
 
         public int UserId { get; set; }
         public User User { get; set; }
@@ -19,15 +17,10 @@ namespace LojaZero.Models
         public ICollection<Phone> Phones { get; set; }
         public ICollection<Address> Addresses { get; set; }
 
-        public Person()
+        public Company()
         {
-            Addresses = new List<Address>();
             Phones = new List<Phone>();
+            Addresses = new List<Address>();
         }
-    }
-    public enum Gender
-    {
-        Male,
-        Female
     }
 }

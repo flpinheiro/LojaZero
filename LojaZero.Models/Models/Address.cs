@@ -15,7 +15,10 @@ namespace LojaZero.Models
         public string State { get; set; }
         public string Country { get; set; }
 
-        public int PersonId { get; set; }
+        public int? PersonId { get; set; }
         public Person Person { get; set; }
+
+        public int? CompanyId { get; set; }
+        public Company Company { get; set; }
     }
 }

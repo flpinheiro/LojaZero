@@ -9,9 +9,9 @@ namespace LojaZero.Models
         public int Id { get; set; }
         public DateTime DtShop { get; set; }
         public DateTime DtSend { get; set; }
-        public string MailTag { get; set; }
         public decimal ShippingTax { get; set; }
-        
+        public ShoppingCartStatus ShoppingCartStatus { get; set; }
+
         public ICollection<ProductSelect> ProductSelects { get; set; }
 
         public int ClientId { get; set; }
