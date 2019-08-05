@@ -1,13 +1,14 @@
 ﻿using JetBrains.Annotations;
 using LojaZero.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LojaZero.DataBase.DAL
+namespace LojaZero.DAL
 {
-    public class LojaZeroContext : DbContext
+    public class LojaZeroDbContext : DbContext
     {
         public DbSet<Client> Clients { get; set; }
         public DbSet<Company> Companies { get; set; }
@@ -17,22 +18,25 @@ namespace LojaZero.DataBase.DAL
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<User> Users { get; set; }
-        public LojaZeroContext(DbContextOptions options) : base(options)
-        {
 
+        public LojaZeroDbContext(DbContextOptions options) : base(options)
+        {
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
 
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)/MSSQLLocalDB;Initial Catalog=LojaZero;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
+                //"Data Source=(localdb)/MSSQLLocalDB;Initial Catalog=LojaZero;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.HasDefaultSchema("LojaZero");
 
             modelBuilder.Entity<Address>(a =>
             {
@@ -58,10 +62,10 @@ namespace LojaZero.DataBase.DAL
             modelBuilder.Entity<Employee>(e =>
             {
                 e.HasBaseType<Person>();
-                e.HasMany(es => es.ShoppingCartStatuses)
+                e.HasMany(es => es.ShoppingCartSelect)
                 .WithOne(st => st.SelectEmployee)
                 .HasForeignKey(st => st.SelectEmployeeId);
-                e.HasMany(es => es.ShoppingCartStatuses)
+                e.HasMany(es => es.ShoppingCartDispatch)
                 .WithOne(st => st.DispatchEmployee)
                 .HasForeignKey(st => st.DispatchEmployeeId);
             });
@@ -101,7 +105,7 @@ namespace LojaZero.DataBase.DAL
 
             modelBuilder.Entity<ProductPromotion>(p =>
             {
-                p.HasIndex(pm => new { pm.ProductId, pm.PromotionId });
+                p.HasKey(pm => new { pm.ProductId, pm.PromotionId });
             });
 
             modelBuilder.Entity<ProductSelect>(p =>
@@ -111,7 +115,7 @@ namespace LojaZero.DataBase.DAL
 
             modelBuilder.Entity<ProductTag>(p =>
             {
-                p.HasIndex(pt => new { pt.ProductId, pt.TagId });
+                p.HasKey(pt => new { pt.ProductId, pt.TagId });
             });
 
             modelBuilder.Entity<Promotion>(p =>

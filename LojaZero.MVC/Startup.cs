@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using LojaZero.DataBase.DAL;
+//using LojaZero.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,7 +38,7 @@ namespace LojaZero
 
             var connectionString = Configuration.GetConnectionString("Default");
 
-            services.AddDbContext<LojaZeroContext>(options => options.UseSqlServer(connectionString)) ;
+            //services.AddDbContext<LojaZeroDbContext>(options => options.UseSqlServer(connectionString)) ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,7 +66,7 @@ namespace LojaZero
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            serviceProvider.GetService<LojaZeroContext>().Database.Migrate();
+            //serviceProvider.GetService<LojaZeroDbContext>().Database.Migrate();
         }
     }
 }
