@@ -12,4 +12,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\LojaZero.DataBase\LojaZero.DataBase.csproj" />
+    <ProjectReference Include="..\LojaZero.Models\LojaZero.Models.csproj" />
+  </ItemGroup>
+
 </Project>

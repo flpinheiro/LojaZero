@@ -46,12 +46,21 @@ namespace LojaZero.Models
         }
         public decimal TotalValueWithDiscount()
         {
+            ApplyPromotion();
             decimal total = 0;
             foreach (var item in ProductSelects)
             {
                 total += item.TotalValueWithDiscount();
             }
             return total + ShippingTax;
+        }
+
+        public void ApplyPromotion()
+        {
+            foreach (var item in ProductSelects)
+            {
+                item.ApplyPromotion();
+            }
         }
     }
 }

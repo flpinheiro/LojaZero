@@ -95,6 +95,36 @@ namespace LojaZero.Test.Models
             Assert.AreEqual((decimal)3m * 12m * (1m - 10m / 100m) + 4m * 16m * (1m - 20m / 100m) + 10m,sc.TotalValueWithDiscount());
         }
 
-
+        [TestMethod]
+        public void TestApplyDiscount()
+        {
+            var product = new Product()
+            {
+                Name = "sorvete",
+                Id = 1,
+                Value = 10,
+                Promotions = new List<ProductPromotion>()
+                {
+                    new ProductPromotion()
+                    {
+                        ProductId = 1,
+                        Discount = 10
+                    }
+                }
+            };
+            var productSelection = new ProductSelect()
+            {
+                Product = product,
+                Qtd = 1
+            };
+            var shoppingCart = new ShoppingCart()
+            {
+                ProductSelects = new List<ProductSelect>()
+                {
+                    productSelection
+                }
+            };
+            Assert.AreEqual(9, shoppingCart.TotalValueWithDiscount() );
+        }
     }
 }

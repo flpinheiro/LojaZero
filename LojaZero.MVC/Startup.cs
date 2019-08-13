@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-//using LojaZero.DAL;
+using LojaZero.Context;
+using LojaZero.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -38,7 +39,18 @@ namespace LojaZero
 
             var connectionString = Configuration.GetConnectionString("Default");
 
-            //services.AddDbContext<LojaZeroDbContext>(options => options.UseSqlServer(connectionString)) ;
+            services.AddDbContext<LojaZeroDbContext>(options => options.UseSqlServer(connectionString)) ;
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                // Make the session cookie essential
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +70,7 @@ namespace LojaZero
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {
@@ -66,7 +79,7 @@ namespace LojaZero
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            //serviceProvider.GetService<LojaZeroDbContext>().Database.Migrate();
+           serviceProvider.GetService<LojaZeroDbContext>().Database.Migrate();
         }
     }
 }

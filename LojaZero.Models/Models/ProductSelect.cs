@@ -47,5 +47,16 @@ namespace LojaZero.Models
 
         public decimal TotalValueWithDiscount() => TotalValue() * (1 - Discount / 100);
 
+        public void ApplyPromotion()
+        {
+            foreach (var item in _product.Promotions)
+            {
+                if (_product.Id == item.ProductId)
+                {
+                    Discount = item.Discount;
+                }
+            }
+        }
+
     }
 }

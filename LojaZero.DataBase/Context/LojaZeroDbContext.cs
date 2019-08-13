@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LojaZero.DAL
+namespace LojaZero.Context
 {
     public class LojaZeroDbContext : DbContext
     {
@@ -153,6 +153,16 @@ namespace LojaZero.DAL
             modelBuilder.Entity<User>(u =>
             {
                 u.HasKey(us => us.Id);
+            });
+
+            modelBuilder.Entity<UserPerson>(u => 
+            {
+                u.HasBaseType<User>();
+            });
+
+            modelBuilder.Entity<UserCompany>(u =>
+            {
+                u.HasBaseType<User>();
             });
         }
     }

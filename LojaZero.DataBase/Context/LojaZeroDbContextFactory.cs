@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LojaZero.DAL
+namespace LojaZero.Context
 {
-    class LojaZeroDbContextFactory: IDesignTimeDbContextFactory<LojaZeroDbContext>
+    public class LojaZeroDbContextFactory: IDesignTimeDbContextFactory<LojaZeroDbContext>
     {
         private static string _connectionString;
 

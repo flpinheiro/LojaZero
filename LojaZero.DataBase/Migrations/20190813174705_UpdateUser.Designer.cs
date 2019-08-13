@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LojaZero.Migrations
 {
     [DbContext(typeof(LojaZeroDbContext))]
-    [Migration("20190805233829_Initial")]
-    partial class Initial
+    [Migration("20190813174705_UpdateUser")]
+    partial class UpdateUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -291,6 +291,9 @@ namespace LojaZero.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email");
 
                     b.Property<string>("Password")
@@ -299,6 +302,8 @@ namespace LojaZero.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
             modelBuilder.Entity("LojaZero.Models.Client", b =>
@@ -317,6 +322,20 @@ namespace LojaZero.Migrations
                     b.HasDiscriminator().HasValue("Employee");
                 });
 
+            modelBuilder.Entity("LojaZero.Models.UserCompany", b =>
+                {
+                    b.HasBaseType("LojaZero.Models.User");
+
+                    b.HasDiscriminator().HasValue("UserCompany");
+                });
+
+            modelBuilder.Entity("LojaZero.Models.UserPerson", b =>
+                {
+                    b.HasBaseType("LojaZero.Models.User");
+
+                    b.HasDiscriminator().HasValue("UserPerson");
+                });
+
             modelBuilder.Entity("LojaZero.Models.Address", b =>
                 {
                     b.HasOne("LojaZero.Models.Company", "Company")
@@ -330,7 +349,7 @@ namespace LojaZero.Migrations
 
             modelBuilder.Entity("LojaZero.Models.Company", b =>
                 {
-                    b.HasOne("LojaZero.Models.User", "User")
+                    b.HasOne("LojaZero.Models.UserCompany", "User")
                         .WithOne("Company")
                         .HasForeignKey("LojaZero.Models.Company", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -338,7 +357,7 @@ namespace LojaZero.Migrations
 
             modelBuilder.Entity("LojaZero.Models.Person", b =>
                 {
-                    b.HasOne("LojaZero.Models.User", "User")
+                    b.HasOne("LojaZero.Models.UserPerson", "User")
                         .WithOne("Person")
                         .HasForeignKey("LojaZero.Models.Person", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);

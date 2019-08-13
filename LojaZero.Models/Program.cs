@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LojaZero.Models;
+using System;
 
 namespace LojaZero
 {

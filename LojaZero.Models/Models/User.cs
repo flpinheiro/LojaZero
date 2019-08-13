@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LojaZero.Models
 {
-    public class User
+    public abstract class User
     {
         public int Id { get; set; }
         [EmailAddress]
@@ -14,7 +14,7 @@ namespace LojaZero.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        public Person Person { get; set; }
-        public Company Company { get; set; }
+        
+        
     }
 }

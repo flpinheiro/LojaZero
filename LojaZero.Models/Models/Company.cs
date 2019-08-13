@@ -12,7 +12,7 @@ namespace LojaZero.Models
 
 
         public int UserId { get; set; }
-        public User User { get; set; }
+        public UserCompany User { get; set; }
 
         public ICollection<Phone> Phones { get; set; }
         public ICollection<Address> Addresses { get; set; }

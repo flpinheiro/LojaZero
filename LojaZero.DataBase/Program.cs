@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LojaZero.DataBase
+namespace LojaZero
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("executado com sucesso");
+            Console.WriteLine("DataBase");
         }
     }
 }
