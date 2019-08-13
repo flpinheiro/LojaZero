@@ -103,6 +103,15 @@ namespace LojaZero.Context
                 .HasForeignKey(pm => pm.ProductId);
             });
 
+            modelBuilder.Entity<ProductPhoto>(p => 
+            {
+                p.HasKey(P => new {P.ProductId, P.Name });
+                p.HasOne(P => P.Product)
+                .WithMany(P => P.Photos)
+                .HasForeignKey(P => P.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+            });
+
             modelBuilder.Entity<ProductPromotion>(p =>
             {
                 p.HasKey(pm => new { pm.ProductId, pm.PromotionId });

@@ -9,9 +9,12 @@
    * Install-Package Microsoft.EntityFrameworkCore.Tools -Version 2.2.4
    * ConnectionString : Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=LojaZero; Integrated Security=True; Connect Timeout=30; Encrypt=False; TrustServerCertificate=False; ApplicationIntent=ReadWrite; MultiSubnetFailover=False
 
- * Bootstrap v. 4.3 para  gerenciamento do sistema web
+ * Bootstrap v. 4.3 para gerenciamento do sistema web
  
  * JQuery
 
  * Angular 
 
+ * ASP.NET Core 2.2 MVC para Gerar um Sistema WEB
+
+ * Xamarin

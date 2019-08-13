@@ -16,12 +16,14 @@ namespace LojaZero.Models
         public ICollection<ProductSelect> Sold { get; set; }
         public ICollection<ProductTag> ProductTags { get; set; }
         public ICollection<ProductPromotion> Promotions { get; set; }
+        public ICollection<ProductPhoto> Photos { get; set; }
 
         public Product()
         {
             Sold = new List<ProductSelect>();
             ProductTags = new List<ProductTag>();
             Promotions = new List<ProductPromotion>();
+            Photos = new List<ProductPhoto>();
         }
 
     }
