@@ -10,7 +10,6 @@ namespace LojaZero
     {
         static void Main()
         {
-            Console.WriteLine("Hello World!");
             var context = new LojaZeroDbContextFactory().CreateDbContext();
             
             var pro = new ProductDAL(context);

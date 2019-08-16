@@ -61,7 +61,7 @@ namespace LojaZero.Test.Models
             sc.ProductSelects.Add(ps2);
             sc.ProductSelects.Add(ps1);
 
-            Assert.AreEqual(3m * 12m + 4m * 16m + 10m, sc.TotalValue() );
+            Assert.AreEqual(3m * 12m + 4m * 16m + 10m, sc.TotalValue());
         }
 
         [TestMethod]
@@ -73,7 +73,7 @@ namespace LojaZero.Test.Models
                 {
                     Value = 12m
                 },
-                Qtd = 3, 
+                Qtd = 3,
                 Discount = 10
             };
             var ps2 = new ProductSelect()
@@ -91,40 +91,194 @@ namespace LojaZero.Test.Models
             };
             sc.ProductSelects.Add(ps2);
             sc.ProductSelects.Add(ps1);
-
-            Assert.AreEqual((decimal)3m * 12m * (1m - 10m / 100m) + 4m * 16m * (1m - 20m / 100m) + 10m,sc.TotalValueWithDiscount());
+            Assert.AreEqual((decimal)3m * 12m * (1m - 10m / 100m) + 4m * 16m * (1m - 20m / 100m) + 10m, sc.TotalValueWithDiscount());
         }
 
+
         [TestMethod]
-        public void TestApplyDiscount()
+        public void TestApplyPromotion()
         {
-            var product = new Product()
+            var prod1 = new Product()
             {
-                Name = "sorvete",
                 Id = 1,
-                Value = 10,
-                Promotions = new List<ProductPromotion>()
+                Value = 10
+            };
+            var prod2 = new Product()
+            {
+                Id = 2,
+                Value = 5
+            };
+
+            var promo = new Promotion()
+            {
+                Products = new List<ProductPromotion>()
                 {
-                    new ProductPromotion()
-                    {
-                        ProductId = 1,
-                        Discount = 10
-                    }
+                    new ProductPromotion(){Product = prod1, Discount = 20},
+                    new ProductPromotion(){Product = prod2 , Discount = 10}
                 }
             };
-            var productSelection = new ProductSelect()
-            {
-                Product = product,
-                Qtd = 1
-            };
-            var shoppingCart = new ShoppingCart()
+
+            var cart = new ShoppingCart()
             {
                 ProductSelects = new List<ProductSelect>()
                 {
-                    productSelection
+                    new ProductSelect(){Product = prod1, Qtd=1 },
+                    new ProductSelect(){Product = prod2, Qtd=1 }
+                },
+                Promotion = promo
+            };
+            cart.ApplyPromotion();
+            Assert.AreEqual(10 * 0.8m + 5 * 0.9m, cart.TotalValueWithDiscount());
+        }
+
+        [TestMethod]
+        public void TestApplyPromotion2()
+        {
+            var prod1 = new Product()
+            {
+                Id = 1,
+                Value = 10
+            };
+            var prod2 = new Product()
+            {
+                Id = 2,
+                Value = 5
+            };
+
+            var promo = new Promotion()
+            {
+                Products = new List<ProductPromotion>()
+                {
+                    new ProductPromotion() { Product = prod1, Discount = 20 },
+                    new ProductPromotion() { Product = prod2, Discount = 10 }
+                },
+                DtEnd = DateTime.Today.AddDays(-1)
+            };
+
+            var cart = new ShoppingCart()
+            {
+                ProductSelects = new List<ProductSelect>()
+                {
+                    new ProductSelect(){Product = prod1, Qtd=1 },
+                    new ProductSelect(){Product = prod2, Qtd=1 }
+                },
+                Promotion = promo,
+                DtShop = DateTime.Today
+            };
+            cart.ApplyPromotion();
+            Assert.AreEqual(cart.TotalValue(), cart.TotalValueWithDiscount());
+        }
+
+        [TestMethod]
+        public void TestApplyPromotion3()
+        {
+            var prod1 = new Product()
+            {
+                Id = 1,
+                Value = 10
+            };
+            var prod2 = new Product()
+            {
+                Id = 2,
+                Value = 5
+            };
+
+            var promo = new Promotion()
+            {
+                Products = new List<ProductPromotion>()
+                {
+                    new ProductPromotion() { Product = prod1, Discount = 20 },
+                    new ProductPromotion() { Product = prod2, Discount = 10 }
+                },
+                DtEnd = DateTime.Today
+            };
+
+            var cart = new ShoppingCart()
+            {
+                ProductSelects = new List<ProductSelect>()
+                {
+                    new ProductSelect(){Product = prod1, Qtd=1 },
+                    new ProductSelect(){Product = prod2, Qtd=1 }
+                },
+                Promotion = promo,
+                DtShop = DateTime.Today
+            };
+            cart.ApplyPromotion();
+            Assert.AreEqual(10 * 0.8m + 5 * 0.9m, cart.TotalValueWithDiscount());
+        }
+
+        [TestMethod]
+        public void TestCheckout()
+        {
+            var prod = new Product()
+            {
+                Id = 1,
+                Name = "sorvete",
+                Stock = 10
+            };
+
+            var cart = new ShoppingCart()
+            {
+                ProductSelects = new List<ProductSelect>()
+                {
+                    new ProductSelect()
+                    {
+                        Product = prod, Qtd = 5
+                    }
                 }
             };
-            Assert.AreEqual(9, shoppingCart.TotalValueWithDiscount() );
+            cart.Checkout();
+            Assert.AreEqual((uint)5, prod.Stock);
         }
+
+
+        [TestMethod]
+        public void TestCheckout2()
+        {
+            var prod = new Product()
+            {
+                Id = 1,
+                Name = "sorvete",
+                Stock = 10
+            };
+
+            var cart = new ShoppingCart()
+            {
+                ProductSelects = new List<ProductSelect>()
+                {
+                    new ProductSelect()
+                    {
+                        Product = prod, Qtd = 15
+                    }
+                }
+            };
+            cart.Checkout();
+            Assert.AreEqual((uint)0, prod.Stock);
+        }
+
+        [TestMethod]
+        public void TestCancel()
+        {
+            var prod = new Product()
+            {
+                Id = 1,
+                Name = "sorvete",
+                Stock = 10
+            };
+
+            var cart = new ShoppingCart()
+            {
+                ProductSelects = new List<ProductSelect>()
+                {
+                    new ProductSelect()
+                    {
+                        Product = prod, Qtd = 5
+                    }
+                }
+            };
+            cart.Cancel();
+            Assert.AreEqual((uint)15, prod.Stock);
+        }
+
     }
 }

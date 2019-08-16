@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace LojaZero.Models
@@ -8,7 +9,7 @@ namespace LojaZero.Models
     {
         public int Id { get; set; }
         public DateTime DtShop { get; set; }
-        public DateTime DtSend { get; set; }
+        public DateTime? DtSend { get; set; }
         public decimal ShippingTax { get; set; }
         public ShoppingCartStatus ShoppingCartStatus { get; set; }
 
@@ -19,6 +20,9 @@ namespace LojaZero.Models
 
         public int DeliveryAddressId { get; set; }
         public Address DeliveryAddress { get; set; }
+
+        public int? PromotionId { get; set; }
+        public Promotion Promotion { get; set; }
 
         public ShoppingCart()
         {
@@ -46,7 +50,6 @@ namespace LojaZero.Models
         }
         public decimal TotalValueWithDiscount()
         {
-            ApplyPromotion();
             decimal total = 0;
             foreach (var item in ProductSelects)
             {
@@ -57,9 +60,44 @@ namespace LojaZero.Models
 
         public void ApplyPromotion()
         {
-            foreach (var item in ProductSelects)
+            if (Promotion == null) return;
+            if (Promotion.DtEnd != null)
             {
-                item.ApplyPromotion();
+                if (Promotion.DtEnd < DtShop)
+                {
+                    return;
+                }
+            }
+            foreach (var promotion in Promotion.Products)
+            {
+                foreach (var select in ProductSelects)
+                {
+                    if (promotion.Product.Id == select.Product.Id)
+                    {
+                        select.Discount = promotion.Discount;
+                        break;
+                    }
+                }
+            }
+        }
+
+        public void Checkout()
+        {
+            foreach (var product in ProductSelects)
+            {
+                if (product.Product.Stock < product.Qtd)
+                {
+                    product.Qtd = product.Product.Stock;
+                }
+                product.Product.Stock -= product.Qtd;
+            }
+        }
+
+        public void Cancel()
+        {
+            foreach (var product in ProductSelects)
+            {
+                product.Product.Stock += product.Qtd;
             }
         }
     }

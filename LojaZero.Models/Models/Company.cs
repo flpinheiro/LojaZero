@@ -10,7 +10,6 @@ namespace LojaZero.Models
         public string Name { get; set; }
         public string CNPJ { get; set; }
 
-
         public int UserId { get; set; }
         public UserCompany User { get; set; }
 

@@ -8,7 +8,7 @@ namespace LojaZero.Models
     public abstract class User
     {
         public int Id { get; set; }
-        [EmailAddress]
+        [EmailAddress, Required]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]

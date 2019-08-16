@@ -7,7 +7,7 @@ namespace LojaZero.Models
 {
     public class ProductPhoto
     {
-        [Required,MaxLength(1<<10)]
+        [Required,MaxLength(1<<22)]
         public byte[] File { get; set; }
         [StringLength(100)]
         public string Name { get; set; }

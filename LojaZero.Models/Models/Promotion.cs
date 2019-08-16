@@ -10,10 +10,11 @@ namespace LojaZero.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public DateTime DtStart { get; set; }
-        public DateTime DtEnd { get; set; }
+        public DateTime? DtStart { get; set; }
+        public DateTime? DtEnd { get; set; }
         public string Cod { get; set; }
         public ICollection<ProductPromotion> Products { get; set; }
+        public ICollection<Promotion> Promotions { get; set; }
 
         public Promotion()
         {

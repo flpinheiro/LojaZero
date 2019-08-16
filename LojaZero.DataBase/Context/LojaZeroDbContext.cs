@@ -54,9 +54,15 @@ namespace LojaZero.Context
             modelBuilder.Entity<Company>(c =>
             {
                 c.HasKey(cs => cs.Id);
-                c.HasOne(cs => cs.User).WithOne(u => u.Company).HasForeignKey<Company>(cs => cs.UserId);
-                c.HasMany(cs => cs.Phones).WithOne(p => p.Company).HasForeignKey(p => p.CompanyId);
-                c.HasMany(cs => cs.Addresses).WithOne(a => a.Company).HasForeignKey(a => a.CompanyId);
+                c.HasOne(cs => cs.User)
+                .WithOne(u => u.Company)
+                .HasForeignKey<Company>(cs => cs.UserId);
+                c.HasMany(cs => cs.Phones)
+                .WithOne(p => p.Company)
+                .HasForeignKey(p => p.CompanyId);
+                c.HasMany(cs => cs.Addresses)
+                .WithOne(a => a.Company)
+                .HasForeignKey(a => a.CompanyId);
             });
 
             modelBuilder.Entity<Employee>(e =>

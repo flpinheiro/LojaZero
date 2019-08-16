@@ -93,31 +93,5 @@ namespace LojaZero.Test.Models
             ps.Product = p2;
             Assert.AreEqual(3m, ps.UnitValue);
         }
-
-        [TestMethod]
-        public void TestApplyDiscount()
-        {
-            var product = new Product()
-            {
-                Name = "sorvete",
-                Id = 1, 
-                Value = 10,
-                Promotions = new List<ProductPromotion>()
-                {
-                    new ProductPromotion()
-                    {
-                        ProductId = 1,
-                        Discount = 10
-                    }
-                }
-            };
-            var productSelection = new ProductSelect()
-            {
-                Product = product,
-                Qtd =  1
-            };
-            productSelection.ApplyPromotion();
-            Assert.AreEqual(9, productSelection.TotalValueWithDiscount());
-        }
     }
 }

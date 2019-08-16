@@ -11,7 +11,7 @@ namespace LojaZero.Models
         public string Description { get; set; }
         public decimal Value { get; set; }
         public double Weight { get; set; }
-        public int Stock { get; set; }
+        public uint Stock { get; set; }
 
         public ICollection<ProductSelect> Sold { get; set; }
         public ICollection<ProductTag> ProductTags { get; set; }
